@@ -6,8 +6,8 @@ import com.example.core.scopes.ActivityScope
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
-@ActivityScope
 class ViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {

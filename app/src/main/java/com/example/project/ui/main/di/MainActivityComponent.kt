@@ -10,8 +10,8 @@ import dagger.Component
 
 @ActivityScope
 @Component(
-    dependencies = [AppComponent::class],
-    modules = [MainViewModule::class,FactoryModelModule::class]
+    dependencies = [AppComponent::class,FactoryViewModelComponent::class],
+    modules = [MainViewModule::class]
 )
 interface MainActivityComponent {
     fun inject(activity: MainActivity)

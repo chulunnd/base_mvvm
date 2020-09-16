@@ -34,7 +34,6 @@ abstract class BaseActivity<V : BaseViewModel, BD : ViewDataBinding> : AppCompat
     protected abstract fun layoutId(): Int
 
     protected abstract fun viewModelClass(): Class<V>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
         super.onCreate(savedInstanceState)

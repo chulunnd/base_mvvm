@@ -5,7 +5,9 @@ import androidx.navigation.findNavController
 import com.example.core.base.BaseActivity
 import com.example.project.Application
 import com.example.project.navigation.AppNavigation
+import com.example.project.ui.main.di.DaggerFactoryViewModelComponent
 import com.example.project.ui.main.di.DaggerMainActivityComponent
+import com.example.project.ui.main.di.FactoryViewModelComponent
 import com.example.recyclerviewmvvm.R
 import com.example.recyclerviewmvvm.databinding.ActivityMainBinding
 import javax.inject.Inject
@@ -24,7 +26,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun viewModelClass() = MainViewModel::class.java
     override fun injectDependencies() {
-        DaggerMainActivityComponent.builder().appComponent(Application.component).build().inject(this)
+        component = DaggerFactoryViewModelComponent.builder().build();
+        DaggerMainActivityComponent.builder().appComponent(Application.component)
+            .factoryViewModelComponent(
+                component
+            ).build()
+            .inject(this)
     }
 
+    companion object {
+        lateinit var component: FactoryViewModelComponent
+    }
 }

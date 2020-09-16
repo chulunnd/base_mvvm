@@ -7,6 +7,8 @@ import com.example.project.Application
 import com.example.project.ui.mainScreen.home.di.DaggerTravelActivityComponent
 import com.rikkei.dynamicfeature.R
 import com.rikkei.dynamicfeature.databinding.ActivityTravelBinding
+import com.rikkei.dynamicfeature.di.DaggerFactoryViewModelComponent
+import com.rikkei.dynamicfeature.di.FactoryViewModelComponent
 import com.rikkei.dynamicfeature.navigation.TravelNavigation
 import javax.inject.Inject
 
@@ -23,8 +25,19 @@ class TravelActivity : BaseActivity<TravelModel, ActivityTravelBinding>() {
     override fun layoutId() = R.layout.activity_travel
 
     override fun viewModelClass() = TravelModel::class.java
+
+
     override fun injectDependencies() {
-        DaggerTravelActivityComponent.builder().appComponent(Application.component).build()
+        component = DaggerFactoryViewModelComponent.builder().build();
+        DaggerTravelActivityComponent.builder().factoryViewModelComponent(component)
+            .appComponent(Application.component)
+            .factoryViewModelComponent(
+                component
+            ).build()
             .inject(this)
+    }
+
+    companion object {
+        lateinit var component: FactoryViewModelComponent
     }
 }

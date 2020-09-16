@@ -9,14 +9,15 @@ import com.rikkei.dynamicfeature.ui.activity.TravelModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 @Module
 abstract class TravelFactoryModelModule {
-    @ActivityScope
+    @Singleton
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-    @ActivityScope
+    @Singleton
     @Binds
     @IntoMap
     @ViewModelKey(TravelModel::class)

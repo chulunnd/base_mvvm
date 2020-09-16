@@ -6,6 +6,7 @@ import android.view.View
 import com.example.core.base.BaseFragment
 import com.example.project.Application
 import com.example.project.navigation.AppNavigation
+import com.example.project.ui.main.MainActivity
 import com.example.project.ui.mainScreen.home.di.DaggerHomeComponent
 import com.example.project.ui.mainScreen.home.di.DaggerNoticeComponent
 import com.example.recyclerviewmvvm.R
@@ -26,6 +27,11 @@ class NoticeFragment : BaseFragment<NoticeViewModel, FragmentNoticeBinding>() {
     }
 
     override fun injectDependencies() {
-        DaggerNoticeComponent.builder().appComponent(Application.component).build().inject(this)
+        if (activity is MainActivity) {
+            DaggerNoticeComponent.builder().appComponent(Application.component)
+                .factoryViewModelComponent(
+                    MainActivity.component
+                ).build().inject(this)
+        }
     }
 }

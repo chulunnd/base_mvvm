@@ -6,8 +6,8 @@ import android.view.View
 import com.example.core.base.BaseFragment
 import com.example.project.Application
 import com.example.project.navigation.AppNavigation
+import com.example.project.ui.main.MainActivity
 import com.example.project.ui.mainScreen.home.di.DaggerHomeComponent
-import com.example.project.ui.mainScreen.home.di.DaggerMainComponent
 import com.example.recyclerviewmvvm.R
 import com.example.recyclerviewmvvm.databinding.FragmentHomeBinding
 import javax.inject.Inject
@@ -21,7 +21,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.background.setOnClickListener {
-//            appNavigation.openSettingScreen()
             var intent = Intent(Intent.ACTION_VIEW).setClassName(
                 "com.example.recyclerviewmvvm",
                 "com.rikkei.dynamicfeature.ui.activity.TravelActivity"
@@ -36,6 +35,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun viewModelClass() = HomeViewModel::class.java
     override fun injectDependencies() {
-        DaggerHomeComponent.builder().appComponent(Application.component).build().inject(this)
+        if (activity is MainActivity) {
+            DaggerHomeComponent.builder().appComponent(Application.component)
+                .factoryViewModelComponent(
+                    MainActivity.component
+                ).build().inject(this)
+        }
     }
 }
