@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/travel_navigation"
+    app:startDestination="@id/homeTravel">
+
+    <fragment
+        android:id="@+id/homeTravel"
+        android:name="com.rikkei.dynamicfeature.HomeTravel"
+        android:label="fragment_home_travel"
+        tools:layout="@layout/fragment_home_travel" >
+        <action
+            android:id="@+id/action_homeTravel_to_eventTravel"
+            app:destination="@id/eventTravel" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventTravel"
+        android:name="com.rikkei.dynamicfeature.EventTravel"
+        android:label="fragment_event_travel"
+        tools:layout="@layout/fragment_event_travel" />
+</navigation>

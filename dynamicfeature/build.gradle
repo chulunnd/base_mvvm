@@ -1,0 +1,69 @@
+apply plugin: "com.android.dynamic-feature"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(path: ':libraries:core')
+    implementation project(':app')
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+    /* Dagger2  */
+    implementation libraries.dagger
+    implementation libraries.daggerSupport
+    implementation libraries.daggerAndroid
+    kapt libraries.daggerProcessor
+    kapt libraries.daggerAndroidApt
+
+    implementation libraries.kotlin
+
+    //    //ViewModel
+    implementation libraries.viewmodel
+    kapt libraries.liveData
+
+    //view
+    implementation libraries.material
+    implementation libraries.constraintlayout
+    implementation libraries.timber
+
+    // Loading Image
+    implementation libraries.glide
+    kapt libraries.glideCompiler
+    // Network
+    implementation libraries.retrofit
+    implementation libraries.gson
+    implementation libraries.retrofitRx
+    implementation libraries.interceptor
+
+}

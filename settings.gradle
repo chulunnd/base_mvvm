@@ -1,0 +1,4 @@
+include ':dynamicfeature'
+include ':libraries:core'
+include ':app'
+rootProject.name = "RecyclerViewMVVM"
