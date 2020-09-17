@@ -16,10 +16,4 @@ abstract class TravelFragmentModule {
     @Binds
     @ActivityScope
     abstract fun provideTravelNavigation(travelNavigationImpl: TravelNavigationImpl): TravelNavigation
-
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(TravelModel::class)
-//    protected abstract fun bindTravelActivityViewModel(travelModel: TravelModel): ViewModel
-
 }

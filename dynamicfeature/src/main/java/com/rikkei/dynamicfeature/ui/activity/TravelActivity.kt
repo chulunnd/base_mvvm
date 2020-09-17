@@ -3,12 +3,13 @@ package com.rikkei.dynamicfeature.ui.activity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import com.example.core.base.BaseActivity
+import com.example.core.utils.Defines
 import com.example.project.Application
 import com.example.project.ui.mainScreen.home.di.DaggerTravelActivityComponent
 import com.rikkei.dynamicfeature.R
 import com.rikkei.dynamicfeature.databinding.ActivityTravelBinding
-import com.rikkei.dynamicfeature.di.DaggerFactoryViewModelComponent
-import com.rikkei.dynamicfeature.di.FactoryViewModelComponent
+import com.rikkei.dynamicfeature.di.component.DaggerTravelFactoryViewModelComponent
+import com.rikkei.dynamicfeature.di.component.TravelFactoryViewModelComponent
 import com.rikkei.dynamicfeature.navigation.TravelNavigation
 import javax.inject.Inject
 
@@ -19,7 +20,12 @@ class TravelActivity : BaseActivity<TravelModel, ActivityTravelBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        travelNavigation.bind(findNavController(R.id.nav_travel))
+        val navicontrol = findNavController(R.id.nav_travel)
+        val bundle = Bundle()
+        bundle.putString(Defines.HELLO, "hello travel")
+        navicontrol.setGraph(navicontrol.graph, bundle)
+        travelNavigation.bind(navicontrol)
+
     }
 
     override fun layoutId() = R.layout.activity_travel
@@ -28,16 +34,16 @@ class TravelActivity : BaseActivity<TravelModel, ActivityTravelBinding>() {
 
 
     override fun injectDependencies() {
-        component = DaggerFactoryViewModelComponent.builder().build();
-        DaggerTravelActivityComponent.builder().factoryViewModelComponent(component)
+        componentTravel = DaggerTravelFactoryViewModelComponent.builder().build();
+        DaggerTravelActivityComponent.builder()
             .appComponent(Application.component)
-            .factoryViewModelComponent(
-                component
+            .travelFactoryViewModelComponent(
+                componentTravel
             ).build()
             .inject(this)
     }
 
     companion object {
-        lateinit var component: FactoryViewModelComponent
+        lateinit var componentTravel: TravelFactoryViewModelComponent
     }
 }
